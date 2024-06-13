@@ -19,6 +19,7 @@ import { StateType } from './reducers/reducer';
 const App = () => {
   const selections = useSelector((state: StateType) => state.selections);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchBooks);
     dispatch(fetchSelections);
@@ -37,9 +38,9 @@ const App = () => {
         <AddBookToSelectionForm />
         {selections?.data.length > 0 && (
           <Accordion>
-            {selections.data.map((el, i) => {
-              return <Selection key={i} item={el} itemKey={i} />;
-            })}
+            {selections.data.map((el, i) => (
+              <Selection key={i} item={el} itemKey={i} />
+            ))}
           </Accordion>
         )}
       </div>

@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { createSelection } from '../../actions/selection-actions';
 import { isObjectEmpty, isStringEmpty } from '../../utils/utils';
 
-function CreateSelectionForm() {
+const CreateSelectionForm = () => {
   const dispatch = useDispatch();
+
   const [selectionName, setSelectionName] = useState('');
   const [selectionAuthor, setSelectionAuthor] = useState('');
   const [selectionEmail, setSelectionEmail] = useState('');
@@ -107,6 +108,6 @@ function CreateSelectionForm() {
       </form>
     </div>
   );
-}
+};
 
 export default CreateSelectionForm;

@@ -10,22 +10,21 @@ interface SelectionProps {
   item: BookSelection;
 }
 
-const Selection: FC<SelectionProps> = (props) => {
-  const { item } = props;
+const Selection: FC<SelectionProps> = ({ item, itemKey }) => {
   const dispatch = useDispatch();
+
   return (
     <>
-      <Accordion.Item eventKey={props.itemKey.toString()}>
+      <Accordion.Item eventKey={itemKey.toString()}>
         <Accordion.Header>
           <span>
             <strong>{item.title}</strong> by <i>{item.author}</i>
           </span>
         </Accordion.Header>
         <Accordion.Body>
-          {item.books &&
-            item?.books.map((el, i) => {
-              return <BookInSelection selectionId={item._id} bookId={el[0]} key={i} />;
-            })}
+          {item?.books.map((el, i) => (
+            <BookInSelection selectionId={item._id} bookId={el[0]} key={i} />
+          ))}
           <Button
             onClick={() => dispatch(removeSelection(item._id))}
             className="remove_selection_btn"

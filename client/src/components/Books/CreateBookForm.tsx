@@ -3,7 +3,7 @@ import { createBook } from '../../actions/book-actions';
 import { useDispatch } from 'react-redux';
 import { isObjectEmpty, isStringEmpty } from '../../utils/utils';
 
-function CreateBookForm() {
+const CreateBookForm = () => {
   const dispatch = useDispatch();
   const [bookName, setBookName] = useState('');
   const [bookAuthor, setBookAuthor] = useState('');
@@ -78,6 +78,6 @@ function CreateBookForm() {
       </form>
     </div>
   );
-}
+};
 
 export default CreateBookForm;

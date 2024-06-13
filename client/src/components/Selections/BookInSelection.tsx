@@ -2,18 +2,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { removeBookFromSelection } from '../../actions/selection-actions';
 import { StateType } from '../../reducers/reducer';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 interface BookInSelectionProps {
   bookId: string;
   selectionId: string;
 }
 
-const BookInSelection: FC<BookInSelectionProps> = (props) => {
-  const { bookId, selectionId } = props;
-  const dispatch = useDispatch();
+const BookInSelection: FC<BookInSelectionProps> = ({ bookId, selectionId }) => {
   const books = useSelector((state: StateType) => state.books);
-  let book = books.find((el) => el._id === bookId);
+  const dispatch = useDispatch();
+
+  const book = useMemo(() => books.find((el) => el._id === bookId), [books]);
+
   return (
     <div className="selection_list_item">
       <span>

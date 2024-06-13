@@ -4,7 +4,7 @@ import { addBookToSelection } from '../../actions/selection-actions';
 import { showError } from '../../actions/error-actions';
 import { StateType } from '../../reducers/reducer';
 
-function AddBookToSelectionForm() {
+const AddBookToSelectionForm = () => {
   const books = useSelector((state: StateType) => state.books);
   const selections = useSelector((state: StateType) => state.selections);
   const dispatch = useDispatch();
@@ -70,6 +70,6 @@ function AddBookToSelectionForm() {
       </div>
     </form>
   );
-}
+};
 
 export default AddBookToSelectionForm;

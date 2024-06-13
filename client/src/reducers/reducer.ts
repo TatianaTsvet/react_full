@@ -11,12 +11,14 @@ export interface BookSelection {
   books: any[];
 }
 
+export interface Book {
+  _id: string;
+  author: string;
+  title: string;
+}
+
 export interface StateType {
-  books: {
-    _id: string;
-    author: string;
-    title: string;
-  }[];
+  books: Book[];
   selections: {
     data: BookSelection[];
   };
