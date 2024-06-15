@@ -7,8 +7,10 @@ import { fetchSelections } from '../actions/selection-actions';
 
 export function* fetchBooks() {
   try {
-    let res = (yield call(SERVER.get, '/books/')) as { data: Book[] };
-    yield put(fetchBooksSuccessActionCreator(res.data));
+    let res = (yield call(SERVER.get, '/books')) as { data: Book[] };
+    if (res?.data) {
+      yield put(fetchBooksSuccessActionCreator(res.data));
+    }
   } catch (e) {
     yield put(showError(e as string));
   }

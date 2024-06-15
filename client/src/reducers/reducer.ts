@@ -62,7 +62,6 @@ export const reducer = (
           isShow: false,
         },
       };
-
     case 'SHOW_ERROR_MODAL':
       return {
         ...state,
