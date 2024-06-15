@@ -9,21 +9,25 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { applyMiddleware, createStore } from 'redux';
 import { reducer } from './reducers/reducer';
-import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { injectStoreToServer } from './actions/server';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { rootSaga } from './sagas';
+import { createEpicMiddleware } from 'redux-observable';
+import { rootEpic } from './epics';
 
 const sagaMiddleware = createSagaMiddleware();
+const epicMiddleware = createEpicMiddleware();
 
 const store = createStore(
   reducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware, thunk)),
+  composeWithDevTools(applyMiddleware(sagaMiddleware, epicMiddleware)),
 );
 
 sagaMiddleware.run(rootSaga);
+epicMiddleware.run(rootEpic);
+
 injectStoreToServer(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

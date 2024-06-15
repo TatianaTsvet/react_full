@@ -5,7 +5,7 @@ export const FETCH_BOOKS = 'FETCH_BOOKS';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const REMOVE_BOOK = 'REMOVE_BOOK';
 
-export const fetchBooksActionCreator = { type: FETCH_BOOKS };
+export const fetchBooksAction = { type: FETCH_BOOKS };
 export const fetchBooksSuccessActionCreator = (books: Book[]) => ({
   type: FETCH_BOOKS_FULFILLED,
   payload: books,

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { removeBookFromSelection } from '../../actions/selection-actions';
 import { StateType } from '../../reducers/reducer';
 import { FC, useMemo } from 'react';
+import { removeBookFromSelectionActionCreator } from '../../actions/selection-actions';
 
 interface BookInSelectionProps {
   bookId: string;
@@ -21,7 +21,9 @@ const BookInSelection: FC<BookInSelectionProps> = ({ bookId, selectionId }) => {
         <strong>{book?.title}</strong> by {book?.author}
       </span>
       <Button
-        onClick={() => dispatch(removeBookFromSelection(bookId, selectionId))}
+        onClick={() =>
+          dispatch(removeBookFromSelectionActionCreator(bookId, selectionId))
+        }
         variant="outline-danger"
       >
         Delete

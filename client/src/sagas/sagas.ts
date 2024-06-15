@@ -3,7 +3,7 @@ import { call, put } from 'redux-saga/effects';
 import SERVER from '../actions/server';
 import { fetchBooksSuccessActionCreator } from '../actions/book-actions';
 import { Book } from '../reducers/reducer';
-import { fetchSelections } from '../actions/selection-actions';
+import { fetchSelectionsAction } from '../actions/selection-actions';
 
 export function* fetchBooks() {
   try {
@@ -25,7 +25,7 @@ export function* createBook({ payload }: CreateBookAction) {
       yield put(showError(res.data.err));
     } else {
       yield fetchBooks();
-      yield put(fetchSelections);
+      yield put(fetchSelectionsAction);
     }
   } catch (e) {
     yield put(showError(e as string));

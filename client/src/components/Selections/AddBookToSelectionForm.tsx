@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { addBookToSelection } from '../../actions/selection-actions';
 import { showError } from '../../actions/error-actions';
 import { StateType } from '../../reducers/reducer';
+import { addBookToSelectionActionCreator } from '../../actions/selection-actions';
 
 const AddBookToSelectionForm = () => {
   const books = useSelector((state: StateType) => state.books);
@@ -13,7 +13,7 @@ const AddBookToSelectionForm = () => {
 
   const onSubmit = () => {
     if (bookId && selectionId) {
-      dispatch(addBookToSelection(bookId, selectionId));
+      dispatch(addBookToSelectionActionCreator(bookId, selectionId));
     } else {
       dispatch(showError('Please select book and selection'));
     }
