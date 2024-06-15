@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { removeBook } from '../../actions/book-actions';
 import { Book, StateType } from '../../reducers/reducer';
 import { useCallback } from 'react';
+import { removeBookActionCreator } from '../../actions/book-actions';
 
 const Books = () => {
   const books = useSelector((state: StateType) => state.books);
@@ -20,7 +20,7 @@ const Books = () => {
           <button
             type="button"
             className="btn btn-outline-danger btn-sm"
-            onClick={() => dispatch(removeBook(book._id))}
+            onClick={() => book._id && dispatch(removeBookActionCreator(book._id))}
           >
             DELETE
           </button>

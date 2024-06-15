@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { createBook } from '../../actions/book-actions';
 import { useDispatch } from 'react-redux';
 import { isObjectEmpty, isStringEmpty } from '../../utils/utils';
+import { createBookActionCreator } from '../../actions/book-actions';
 
 const CreateBookForm = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const CreateBookForm = () => {
 
     if (isObjectEmpty(errors)) {
       dispatch(
-        createBook({
+        createBookActionCreator({
           title: bookName,
           author: bookAuthor,
         }),

@@ -1,18 +1,20 @@
-import SERVER from './server';
-import { Dispatch } from 'redux';
+import { Book } from '../reducers/reducer';
 
-export const fetchBooks = async (dispatch: Dispatch<any>) => {
-  let res = await SERVER.get('/books');
-  let books = res.data;
-  dispatch({ type: 'FETCH_BOOKS_FULFILLED', payload: { books } });
-};
+export const FETCH_BOOKS_FULFILLED = 'FETCH_BOOKS_FULFILLED';
+export const FETCH_BOOKS = 'FETCH_BOOKS';
+export const CREATE_BOOK = 'CREATE_BOOK';
+export const REMOVE_BOOK = 'REMOVE_BOOK';
 
-export const createBook = (book: any) => async (dispatch: Dispatch<any>) => {
-  await SERVER.post('books', book);
-  dispatch(fetchBooks);
-};
-
-export const removeBook = (id: string) => async (dispatch: Dispatch<any>) => {
-  await SERVER.delete('/books/' + id);
-  dispatch(fetchBooks);
-};
+export const fetchBooksActionCreator = { type: FETCH_BOOKS };
+export const fetchBooksSuccessActionCreator = (books: Book[]) => ({
+  type: FETCH_BOOKS_FULFILLED,
+  payload: books,
+});
+export const createBookActionCreator = (book: Book) => ({
+  type: CREATE_BOOK,
+  payload: book,
+});
+export const removeBookActionCreator = (id: string) => ({
+  type: REMOVE_BOOK,
+  payload: id,
+});

@@ -12,16 +12,16 @@ import ErrorModal from './components/Errors/ErrorModal';
 import './App.css';
 import CreateBookForm from './components/Books/CreateBookForm';
 import Books from './components/Books/Books';
-import { fetchBooks } from './actions/book-actions';
 import { fetchSelections } from './actions/selection-actions';
 import { StateType } from './reducers/reducer';
+import { fetchBooksActionCreator } from './actions/book-actions';
 
 const App = () => {
   const selections = useSelector((state: StateType) => state.selections);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchBooks);
+    dispatch(fetchBooksActionCreator);
     dispatch(fetchSelections);
   }, []);
 

@@ -13,9 +13,17 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { injectStoreToServer } from './actions/server';
 import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import { rootSaga } from './sagas';
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+const sagaMiddleware = createSagaMiddleware();
 
+const store = createStore(
+  reducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware, thunk)),
+);
+
+sagaMiddleware.run(rootSaga);
 injectStoreToServer(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

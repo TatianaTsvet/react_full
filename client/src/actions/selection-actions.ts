@@ -1,10 +1,11 @@
 import SERVER from './server';
 import { Dispatch } from 'redux';
 
+export const FETCH_SELECTIONS_FULFILLED = 'FETCH_SELECTIONS_FULFILLED';
+
 export const fetchSelections = async (dispatch: Dispatch<any>) => {
-  let res = await SERVER.get('/selections');
-  let selections = res.data;
-  dispatch({ type: 'FETCH_SELECTIONS_FULFILLED', payload: selections });
+  const res = await SERVER.get('/selections');
+  dispatch({ type: FETCH_SELECTIONS_FULFILLED, payload: res.data });
 };
 
 export const addBookToSelection =
