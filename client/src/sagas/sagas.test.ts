@@ -11,7 +11,7 @@ afterEach(() => {
 });
 
 describe('Saga fetchBooks', () => {
-  it('should fetch book successfully', async () => {
+  test('should fetch book successfully', async () => {
     const serverSpy = jest.spyOn(SERVER, 'get').mockImplementation(() =>
       Promise.resolve({
         data: { books: [{ author: 'Jack', title: 'News' }] },
@@ -44,7 +44,7 @@ describe('Saga fetchBooks', () => {
     ]);
   });
 
-  it('should dispatch error', async () => {
+  test('should dispatch error', async () => {
     const serverSpy = jest
       .spyOn(SERVER, 'get')
       .mockImplementation(() => Promise.reject('err message'));
@@ -67,7 +67,7 @@ describe('Saga fetchBooks', () => {
 });
 
 describe('Saga createBook', () => {
-  it('should add book', () => {
+  test('should add book', () => {
     const createBookAction = {
       type: CREATE_BOOK,
       payload: { title: 'New book', author: 'John Doe' },
@@ -80,7 +80,7 @@ describe('Saga createBook', () => {
     expect(generator.next().value).toEqual(fetchBooks());
   });
 
-  it('should dispatch error', () => {
+  test('should dispatch error', () => {
     const createBookAction = {
       type: CREATE_BOOK,
       payload: { title: 'New book', author: 'John Doe' },
@@ -95,7 +95,7 @@ describe('Saga createBook', () => {
     );
   });
 
-  it('should dispatch error2', () => {
+  test('should dispatch error2', () => {
     const createBookAction = {
       type: CREATE_BOOK,
       payload: { title: 'New book', author: 'John Doe' },
