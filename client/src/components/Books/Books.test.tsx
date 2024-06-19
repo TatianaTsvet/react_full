@@ -7,7 +7,7 @@ import Books from './Books';
 
 describe('...', () => {
   const mockStore = configureStore();
-  let store, wrapper;
+  let store;
 
   test('Books component', () => {
     store = mockStore({ books: [], selections: { data: [] } });
