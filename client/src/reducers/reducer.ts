@@ -1,7 +1,6 @@
 import { Store } from 'redux';
 import { FETCH_BOOKS_FULFILLED } from '../actions/book-actions';
 import { FETCH_SELECTIONS_FULFILLED } from '../actions/selection-actions';
-import { SHOW_ERROR_MODAL } from '../actions/error-actions';
 
 export type CustomStore = Store<StateType, { type: string; payload: any }> & {
   dispatch: unknown;
@@ -63,7 +62,7 @@ export const reducer = (
           isShow: false,
         },
       };
-    case SHOW_ERROR_MODAL:
+    case 'SHOW_ERROR_MODAL':
       return {
         ...state,
         modal: {

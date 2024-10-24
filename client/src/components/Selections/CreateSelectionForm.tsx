@@ -1,28 +1,27 @@
 import { useDispatch } from 'react-redux';
-import { useForm } from 'react-hook-form';
-
+import { useState } from 'react';
 import { isObjectEmpty, isStringEmpty } from '../../utils/utils';
 import { createSelectionActionCreator } from '../../actions/selection-actions';
 
 const CreateSelectionForm = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      selectionName: '',
-      selectionAuthor: '',
-      selectionEmail: '',
-    },
-  });
-
   const dispatch = useDispatch();
 
-  const onSubmit = async (data: any) => {
-    const { selectionName, selectionAuthor, selectionEmail } = data;
-    const errors: { selectionName?: string; selectionAuthor?: string } = {};
+  const [selectionName, setSelectionName] = useState('');
+  const [selectionAuthor, setSelectionAuthor] = useState('');
+  const [selectionEmail, setSelectionEmail] = useState('');
+
+  const [errors, setErrors] = useState<{
+    selectionName?: string;
+    selectionAuthor?: string;
+    selectionEmail?: string;
+  }>({});
+
+  const onSubmit = async () => {
+    let errors: {
+      selectionName?: string;
+      selectionAuthor?: string;
+      selectionEmail?: string;
+    } = {};
 
     if (isStringEmpty(selectionName)) {
       errors.selectionName = 'required';
@@ -38,7 +37,12 @@ const CreateSelectionForm = () => {
           email: selectionEmail,
         }),
       );
-      reset();
+      setSelectionName('');
+      setSelectionAuthor('');
+      setSelectionEmail('');
+      setErrors({});
+    } else {
+      setErrors(errors);
     }
   };
 
@@ -46,17 +50,23 @@ const CreateSelectionForm = () => {
     <div className="create_selection_form_wrapper">
       <form
         className="create_selection_form row"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit();
+        }}
       >
         <div className="create_selection_input col-md-4">
           <label htmlFor="selectionName" className="form-label">
             Selection Title
           </label>
           <input
-            {...register('selectionName', { required: true })}
+            type="text"
             className="form-control"
+            id="selectionName"
+            value={selectionName}
+            onChange={(e) => setSelectionName(e.target.value)}
           />
-          {errors.selectionName?.type === 'required' && (
+          {errors.selectionName && (
             <span className="form_error">This field is required</span>
           )}
         </div>
@@ -65,10 +75,13 @@ const CreateSelectionForm = () => {
             Selection Author
           </label>
           <input
-            {...register('selectionAuthor', { required: true })}
+            type="text"
             className="form-control"
+            id="selectionAuthor"
+            value={selectionAuthor}
+            onChange={(e) => setSelectionAuthor(e.target.value)}
           />
-          {errors.selectionAuthor?.type === 'required' && (
+          {errors.selectionAuthor && (
             <span className="form_error">This field is required</span>
           )}
         </div>
@@ -77,20 +90,14 @@ const CreateSelectionForm = () => {
             E-mail
           </label>
           <input
-            {...register('selectionEmail', {
-              required: true,
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: 'Not a valid email',
-              },
-            })}
+            type="text"
             className="form-control"
+            id="selectionAuthor"
+            value={selectionEmail}
+            onChange={(e) => setSelectionEmail(e.target.value)}
           />
-          {errors.selectionEmail?.type === 'required' && (
+          {errors.selectionEmail && (
             <span className="form_error">This field is required</span>
-          )}
-          {errors.selectionEmail?.message && (
-            <span className="form_error">{errors.selectionEmail?.message}</span>
           )}
         </div>
         <div className="create_selection_form_add_btn_wrapper">

@@ -1,6 +1,7 @@
 import { ofType } from 'redux-observable';
 import {
   catchError,
+  delay,
   from,
   map,
   Observable,
@@ -30,6 +31,25 @@ import {
   removeBookFromSelectionPendingAction,
   removeSelectionPendingAction,
 } from '../actions/selection-actions';
+import { FETCH_ONE_BOOK, FETCH_ONE_BOOK_FULFILLED, FETCH_ONE_BOOK_STARTED, FETCH_ONEBOOK_STOP } from '../actions/book-actions';
+
+export const fetchOneBookEpic = (action$: Observable<any>) => {
+  return action$.pipe(
+    ofType(FETCH_ONE_BOOK),
+    switchMap(({ payload })=> {
+      return from(SERVER.get('/books/' + payload)).pipe(
+        delay(10000),
+        map(({ data }) => ({
+          type: FETCH_ONE_BOOK_FULFILLED,
+          payload: data,
+        })),
+        takeUntil(action$.pipe(ofType(FETCH_ONEBOOK_STOP))),
+        startWith({ type: FETCH_ONE_BOOK_STARTED }),
+        catchError((e) => of(showError(e))),
+      )
+    })
+  )
+}
 
 export const fetchSelectionEpic = (action$: Observable<any>) =>
   action$.pipe(

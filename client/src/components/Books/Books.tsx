@@ -1,7 +1,8 @@
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Book, StateType } from '../../reducers/reducer';
-import { useCallback } from 'react';
-import { removeBookActionCreator } from '../../actions/book-actions';
+import React, { useCallback } from 'react';
+import { fetchOneBookActionCreator, removeBookActionCreator } from '../../actions/book-actions';
 
 const Books = () => {
   const books = useSelector((state: StateType) => state.books);
@@ -11,6 +12,7 @@ const Books = () => {
     (book: Book, idx: number) => (
       <li
         key={idx}
+        onClick={()=>book._id && dispatch(fetchOneBookActionCreator(book._id))}
         className="list-group-item d-flex justify-content-between align-items-center"
       >
         <span>

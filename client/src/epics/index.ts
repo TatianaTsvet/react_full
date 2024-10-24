@@ -2,6 +2,7 @@ import { combineEpics } from 'redux-observable';
 import {
   addBookToSelectionEpic,
   createSelectionEpic,
+  fetchOneBookEpic,
   fetchSelectionEpic,
   removeBookFromSelectionEpic,
   removeSelectionEpic,
@@ -13,4 +14,6 @@ export const rootEpic = combineEpics(
   createSelectionEpic,
   removeSelectionEpic,
   removeBookFromSelectionEpic,
+ fetchOneBookEpic,
+
 );

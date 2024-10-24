@@ -16,19 +16,9 @@ import createSagaMiddleware from 'redux-saga';
 import { rootSaga } from './sagas';
 import { createEpicMiddleware } from 'redux-observable';
 import { rootEpic } from './epics';
+import { store } from './store';
 
-const sagaMiddleware = createSagaMiddleware();
-const epicMiddleware = createEpicMiddleware();
 
-const store = createStore(
-  reducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware, epicMiddleware)),
-);
-
-sagaMiddleware.run(rootSaga);
-epicMiddleware.run(rootEpic);
-
-injectStoreToServer(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 

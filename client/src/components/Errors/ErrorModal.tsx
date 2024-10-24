@@ -17,7 +17,7 @@ function ErrorModal() {
         </Modal.Header>
 
         <Modal.Body>
-          <p>{errorModal?.message}</p>
+          <p>{typeof errorModal?.message === 'object' ? JSON.stringify(errorModal?.message) : errorModal?.message}</p>
         </Modal.Body>
 
         <Modal.Footer>
